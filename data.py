@@ -1,8 +1,10 @@
-import pandas as pd
 from time import time
+
 import nltk.data
+import pandas as pd
 from gensim.models import Word2Vec
 from sklearn.preprocessing import label_binarize
+
 from w2v import *
 
 
@@ -35,7 +37,7 @@ class Data:
         self.X_train_w2v = w2v_prepare(self)
         self.w2v_duration = time() - t0
         print("word2vec preparation completed in "
-                + str(round(self.w2v_duration)) + "s")
+              + str(round(self.w2v_duration)) + "s")
 
 
 def w2v_prepare(allData):

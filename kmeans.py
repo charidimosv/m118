@@ -1,18 +1,13 @@
-import numpy as np
-import pandas as pd
-import nltk
 import re
-import os
-import codecs
-from sklearn import feature_extraction
-# import mpld3
+
+import nltk
+import pandas as pd
+from nltk.corpus import stopwords
+from nltk.stem.snowball import SnowballStemmer
 
 from utils.file_utils import read_documents, file_len
 
-from nltk.corpus import stopwords
-from nltk.tokenize import wordpunct_tokenize
-
-from nltk.stem.snowball import SnowballStemmer
+# import mpld3
 
 # Resource related properties -------------------------------------------------
 RESOURCES_PATH = "../resources/"

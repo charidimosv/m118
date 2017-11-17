@@ -5,12 +5,11 @@ from time import time
 import nltk
 import pandas as pd
 from nltk import SnowballStemmer
-from nltk.compat import izip
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
-from sklearn.svm import SVC, LinearSVC
+from sklearn.svm import LinearSVC
 
 from data import Data
 

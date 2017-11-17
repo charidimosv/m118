@@ -11,7 +11,8 @@ from sklearn.metrics import roc_curve, auc
 from sklearn.model_selection import StratifiedKFold, cross_val_score
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.pipeline import Pipeline
-from sklearn.svm import LinearSVC, SVC
+from sklearn.svm import LinearSVC
+
 from beat_the_benchmark_classifier import BeatTheBenchmarkClassifier
 from data import Data
 from w2v import *

@@ -1,6 +1,6 @@
-import numpy as np
-from bs4 import BeautifulSoup
 import re
+
+import numpy as np
 from nltk.corpus import stopwords
 
 

@@ -1,22 +1,20 @@
 import argparse
-import getopt
 import os
+import sys
+from collections import Counter
 
+import matplotlib.pyplot as plt
 import nltk
-
-from utils.file_utils import read_documents, file_len
-from wordcloud import WordCloud
+from nltk import sent_tokenize, WordNetLemmatizer
 from nltk.corpus import stopwords
 from nltk.tokenize import wordpunct_tokenize
-from nltk import sent_tokenize, word_tokenize, SnowballStemmer, PorterStemmer, WordNetLemmatizer
-from collections import Counter
-import matplotlib.pyplot as plt
-import sys
-import re
+from wordcloud import WordCloud
+
+from utils.file_utils import read_documents, file_len
 
 # Resource related properties -------------------------------------------------
 RESOURCES_PATH = "resources/"
-DOCUMENT_IDX = 3
+DOCUMENT_IDX = 0
 # Font resources properties ---------------------------------------------------
 FONTS_PATH = RESOURCES_PATH + "fonts/"
 FONT_OPEN_SANS = FONTS_PATH + "OpenSans-Light.ttf"
@@ -59,6 +57,8 @@ class Corpus:
 
         # Tokenize text removing stopwords and accepting only alphabetic tokens
         for row in read_documents(self.dataset_file, self.has_header):
+            if len(row) <= document_idx:
+                continue
             lowered_document = row[document_idx].lower()
             tokenized_document = self.tokenize_and_lemmatize(lowered_document)
 
@@ -78,7 +78,7 @@ class Corpus:
                                max_font_size=WORD_CLOUD_MAX_FONT_SIZE,
                                width=WORD_CLOUD_WIDTH, height=WORD_CLOUD_HEIGHT)
 
-        word_cloud.generate_from_frequencies(word_frequency_counter.most_common(self.most_common_words_number))
+        word_cloud.generate_from_frequencies(dict(word_frequency_counter.most_common(self.most_common_words_number)))
         print("Rendering ultra crisp word cloud...")
         plt.imshow(word_cloud)
         plt.axis("off")
@@ -99,7 +99,8 @@ def main(argv):
     k = -1
 
     parser = argparse.ArgumentParser(description='Generate word cloud from CSV.')
-    parser.add_argument('-i', '--input-file', type=str, help='input CSV file', required=True)
+    parser.add_argument('-i', '--input-file', type=str, default='wordcloud/example_input.txt', help='input CSV file',
+                        required=False)
     parser.add_argument('-k', type=int, default=500,
                         help='k most common words to generate the word cloud [default: 500]')
 
@@ -110,6 +111,7 @@ def main(argv):
     print("Will generate WordCloud for [" + input_file + "] with [" + str(k) + "] most common words.")
     Corpus(input_file, k, True, set(stopwords.words('english')))
     print("Done")
+
 
 if __name__ == '__main__':
     if sys.version_info < (3, 0):
