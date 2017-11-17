@@ -1,0 +1,10 @@
+numpy
+scipy
+scikit-learn
+gensim
+nltk
+wordcloud
+matplotlib
+image
+sklearn
+pandas
